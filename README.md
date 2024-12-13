@@ -3,7 +3,7 @@ This API provides an endpoint for managing users, expenses, income, wallets, bud
 
 ## Endpoints
 - **Register**
-Endpoint: 
+  Endpoint: 
 ```/api/auth/register```
 Method: 
 ```POST```
