@@ -19,10 +19,13 @@ Body Example
 }
 ```
 - **Login**
+
 Endpoint: 
 ```/api/auth/login```
+
 Method: 
 ```POST```
+
 Body Example
 ```sh
 { 
@@ -31,10 +34,13 @@ Body Example
 }
 ```
 - **Login with Google**
+
 Endpoint: 
 ```/api/auth/google-login```
+
 Method: 
 ```POST```
+
 Body Example
 ```sh
 {
@@ -42,10 +48,13 @@ Body Example
 }
 ```
 - **Pemasukan**
+
 Endpoint: 
 ```/api/pemasukan```
+
 Method: 
 ```POST```
+
 Body Example
 ```sh
 {
@@ -59,10 +68,13 @@ Body Example
 }
 ```
 - **Pemasukan**
+
 Endpoint: 
 ```/api/pemasukan/:id pemasukan```
+
 Method: 
 ```PUT```
+
 Body Example
 ```sh
 {
@@ -76,25 +88,37 @@ Body Example
 }
 ```
 - **Pemasukan**
+
 Endpoint: 
 ```/api/pemasukan```
+
 Method: 
 ```GET```
+
 - **Pemasukan**
+
 Endpoint: 
 ```/api/pemasukan/:id pemasukan```
+
 Method: 
 ```GET```
+
 - **Pemasukan**
+
 Endpoint: 
 ```/api/pemasukan/:id pemasukan```
+
 Method: 
 ```DELETE```
+
 - **Pengeluaran**
+
 Endpoint: 
 ```/api/pengeluaran```
+
 Method: 
 ```POST```
+
 Body Example
 ```sh
 {
@@ -108,10 +132,13 @@ Body Example
 }
 ```
 - **Pengeluaran**
+
 Endpoint: 
 ```/api/pengeluaran/:id pengeluaran```
+
 Method: 
 ```PUT```
+
 Body Example
 ```sh
 {
@@ -125,55 +152,85 @@ Body Example
 }
 ```
 - **Pengeluaran**
+
 Endpoint: 
 ```/api/pengeluaran```
+
 Method: 
 ```GET```
+
 - **Pengeluaran**
+
 Endpoint: 
 ```/api/pengeluaran/:id pengeluaran```
+
 Method: 
 ```GET```
+
 - **Pengeluaran**
+
 Endpoint: 
 ```/api/pengeluaran/:id pengeluaran```
+
 Method: 
 ```DELETE```
+
 - **Transaksi**
+
 Endpoint: 
 ```/api/transaksi/transaksi```
+
 Method: 
 ```GET```
+
 - **Transaksi**
+
 Endpoint: 
 ```/api/transaksi/bulan?bulan=...&tahun=...```
+
 Method: 
 ```GET```
+
 - **Transaksi**
+
 Endpoint: 
 ```/api/transaksi/total-pemasukan```
+
 Method: 
 ```GET```
+
 - **Transaksi**
+
 Endpoint: 
 ```/api/transaksi/total-pengeluaran```
+
 Method: 
 ```GET```
+
 - **Transaksi**
+
 Endpoint: 
 ```/api/transaksi/total-pemasukan-bulan?bulan=...&tahun=...```
+
 Method: 
 ```GET```
+
 - **Transaksi**
+
 Endpoint: 
 ```/api/transaksi/total-pengeluaran-bulan?bulan=...&tahun=...```
+
 Method: 
 ```GET```
+
 - **Wallet**
+
 Endpoint: 
 ```/api/wallet```
+
 Method: 
 ```POST```
+
 Body Example
 ```sh
 {
@@ -183,20 +240,29 @@ Body Example
 }
 ```
 - **Wallet**
+
 Endpoint: 
 ```/api/wallet```
+
 Method: 
 ```GET```
+
 - **Wallet**
+
 Endpoint: 
 ```/api/wallet/:id```
+
 Method: 
 ```GET```
+
 - **Wallet**
+
 Endpoint: 
 ```/api/wallet/:id```
+
 Method: 
 ```PUT```
+
 Body Example
 ```sh
 {
@@ -204,15 +270,21 @@ Body Example
 }
 ```
 - **Wallet**
+
 Endpoint: 
 ```/api/wallet/:id```
+
 Method: 
 ```DELETE```
+
 - **Goals**
+
 Endpoint: 
 ```/api/goals```
+
 Method: 
 ```POST```
+
 Body Example
 ```sh
 {
@@ -223,10 +295,13 @@ Body Example
 }
 ```
 - **Goals**
+
 Endpoint: 
 ```/api/goals/:id```
+
 Method: 
 ```PUT```
+
 Body Example
 ```sh
 {
@@ -237,20 +312,29 @@ Body Example
 }
 ```
 - **Goals**
+
 Endpoint: 
 ```/api/goals/:id```
+
 Method: 
 ```DELETE```
+
 - **Goals**
+
 Endpoint: 
 ```/api/goals```
+
 Method: 
 ```GET```
+
 - **Tabungan**
+
 Endpoint: 
 ```/api/tabungan```
+
 Method: 
 ```POST```
+
 Body Example
 ```sh
 {
@@ -262,15 +346,21 @@ Body Example
 }
 ```
 - **Tabungan**
+
 Endpoint: 
 ```/api/tabungan/goal/:id goal?uid=...```
+
 Method: 
 ```GET```
+
 - **Tabungan**
+
 Endpoint: 
 ```/api/tabungan/:id```
+
 Method: 
 ```PUT```
+
 Body Example
 ```sh
 {
@@ -282,20 +372,29 @@ Body Example
 }
 ```
 - **Tabungan**
+
 Endpoint: 
 ```/api/tabungan/:id?uid=...```
+
 Method: 
 ```DELETE```
+
 - **Tabungan**
+
 Endpoint: 
 ```/api/tabungan```
+
 Method: 
 ```GET```
+
 - **User**
+
 Endpoint: 
 ```/api/user```
+
 Method: 
 ```POST```
+
 Body Example
 ```sh
 {
@@ -306,15 +405,21 @@ Body Example
 }
 ```
 - **User**
+
 Endpoint: 
 ```/api/user/uid```
+
 Method: 
 ```GET```
+
 - **User**
+
 Endpoint: 
 ```/api/user```
+
 Method: 
 ```PUT```
+
 Body Example
 ```sh
 {
@@ -325,10 +430,13 @@ Body Example
 }
 ```
 - **Budgeting**
+
 Endpoint: 
 ```/api/budgeting```
+
 Method: 
 ```POST```
+
 Body Example
 ```sh
 {
@@ -339,10 +447,13 @@ Body Example
 }
 ```
 - **Budgeting**
+
 Endpoint: 
 ```/api/budgeting/:id```
+
 Method: 
 ```PUT```
+
 Body Example
 ```sh
 {
@@ -353,13 +464,18 @@ Body Example
 }
 ```
 - **Budgeting**
+
 Endpoint: 
 ```/api/budgeting/:id```
+
 Method: 
 ```DELETE```
+
 - **Budgeting**
+
 Endpoint: 
 ```/api/budgeting```
+
 Method: 
 ```GET```
 
