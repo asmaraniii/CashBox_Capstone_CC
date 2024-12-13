@@ -148,15 +148,19 @@ exports.getTransaksiByBulan = async (req, res) => {
 
     try {
         const query = `
-            SELECT id_pemasukan AS id_transaksi, deskripsi, nominal, sumber_uang AS sumber, 
-                   tanggal, kategori_masuk AS kategori, 'pemasukan' AS tipe, uid
-            FROM pemasukan
-            WHERE MONTH(tanggal) = ? AND YEAR(tanggal) = ?
+            SELECT 
+                p.id_pemasukan AS id_transaksi, p.deskripsi, p.nominal, p.sumber_uang AS sumber, 
+                p.tanggal, p.kategori_masuk AS kategori, 'pemasukan' AS tipe, w.uid AS uid
+            FROM pemasukan p
+            LEFT JOIN wallet w ON p.sumber_uang = w.id
+            WHERE MONTH(p.tanggal) = ? AND YEAR(p.tanggal) = ?
             UNION
-            SELECT id_pengeluaran AS id_transaksi, deskripsi, nominal, sumber_uang AS sumber,
-                   tanggal, kategori_keluar AS kategori, 'pengeluaran' AS tipe, uid
-            FROM pengeluaran
-            WHERE MONTH(tanggal) = ? AND YEAR(tanggal) = ?
+            SELECT 
+                pg.id_pengeluaran AS id_transaksi, pg.deskripsi, pg.nominal, pg.sumber_uang AS sumber,
+                pg.tanggal, pg.kategori_keluar AS kategori, 'pengeluaran' AS tipe, w.uid AS uid
+            FROM pengeluaran pg
+            LEFT JOIN wallet w ON pg.sumber_uang = w.id
+            WHERE MONTH(pg.tanggal) = ? AND YEAR(pg.tanggal) = ?
             ORDER BY tanggal DESC;
         `;
         const [rows] = await db.query(query, [bulan, tahun, bulan, tahun]);
