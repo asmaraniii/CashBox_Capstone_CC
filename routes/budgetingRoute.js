@@ -3,7 +3,6 @@ const budgetingController = require('../controllers/budgetingController');
 
 const router = express.Router();
 
-// Endpoint untuk menambahkan budget
 router.post('/', async (req, res) => {
     try {
       const { nominal, kategori, urgensi } = req.body;
@@ -20,13 +19,8 @@ router.post('/', async (req, res) => {
   });
   
 
-// Endpoint untuk mendapatkan semua budget
 router.get('/', budgetingController.getAllBudgeting);
-
-// Endpoint untuk mengedit budget
 router.put('/:id', budgetingController.updateBudgeting);
-
-// Endpoint untuk menghapus budget
 router.delete('/:id', budgetingController.deleteBudgeting);
 
 module.exports = router;
