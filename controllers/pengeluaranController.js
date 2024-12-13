@@ -115,10 +115,10 @@ exports.updatePengeluaran = async (req, res) => {
 
         // Jika nominal yang baru lebih kecil dari yang lama, wallet akan bertambah
         if (nominal < oldPengeluaran.nominal) {
-            updatedNominal = parseFloat(wallet.nominal) + (oldPengeluaran.nominal - nominal); // Menambah saldo wallet
+            updatedNominal = parseFloat(wallet.nominal) + (oldPengeluaran.nominal - nominal);
         } else {
             // Jika nominal yang baru lebih besar dari yang lama, wallet akan berkurang
-            updatedNominal = parseFloat(wallet.nominal) - (nominal - oldPengeluaran.nominal); // Mengurangi saldo wallet
+            updatedNominal = parseFloat(wallet.nominal) - (nominal - oldPengeluaran.nominal);
         }
 
         // Periksa apakah saldo wallet mencukupi setelah perubahan nominal
