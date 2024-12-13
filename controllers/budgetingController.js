@@ -4,13 +4,10 @@ const db = require('../config/db');
 exports.addBudgeting = async (req, res) => {
   try {
     const { nominal, kategori, urgensi } = req.body;
-
-    // Validasi input
     if (nominal === undefined || kategori === undefined || urgensi === undefined) {
       return res.status(400).json({ message: "All fields are required" });
     }
-
-    // Validasi kategori
+  
     const [categories] = await db.execute(
       'SELECT id FROM kategori_pengeluaran WHERE id = ?',
       [kategori]
@@ -20,7 +17,6 @@ exports.addBudgeting = async (req, res) => {
       return res.status(400).json({ message: "Invalid kategori ID" });
     }
 
-    // Konversi undefined menjadi null untuk SQL
     const query = `INSERT INTO budgeting (nominal, kategori, urgensi) VALUES (?, ?, ?)`;
     await db.execute(query, [nominal || null, kategori || null, urgensi || null]);
 
@@ -42,8 +38,6 @@ exports.updateBudgeting = async (req, res) => {
   try {
     const { nominal, kategori, urgensi } = req.body;
     const { id } = req.params;
-
-    // Validasi kategori
     const [categories] = await db.execute(
       'SELECT id FROM kategori_pengeluaran WHERE id = ?',
       [kategori]
@@ -53,7 +47,6 @@ exports.updateBudgeting = async (req, res) => {
       return res.status(400).json({ message: "Invalid kategori ID" });
     }
 
-    // Pastikan tidak ada parameter undefined
     if (nominal === undefined || kategori === undefined || urgensi === undefined) {
       return res.status(400).json({ message: "One or more required parameters are undefined" });
     }
