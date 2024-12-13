@@ -1,4 +1,4 @@
-const admin = require("../config/firebase"); // Pastikan path sesuai dengan file inisialisasi Firebase Admin SDK
+const admin = require("../config/firebase");
 
 const verifyToken = async (req, res, next) => {
   const idToken = req.headers.authorization?.split(" ")[1]; 
