@@ -63,7 +63,7 @@ exports.getAllPemasukan = async (req, res) => {
         const [rows] = await db.query(query);
         res.status(200).json(rows.map(pemasukan => ({
             ...pemasukan,
-            uid: pemasukan.wallet_uid // Tambahkan uid pada setiap pemasukan
+            uid: pemasukan.wallet_uid
         })));
     } catch (error) {
         console.error(error);
@@ -74,7 +74,7 @@ exports.getAllPemasukan = async (req, res) => {
 // Mengupdate data pemasukan
 exports.updatePemasukan = async (req, res) => {
     const { id_pemasukan } = req.params;
-    const { deskripsi, nominal, fk_sumber_uang, tanggal, kategori_masuk, uid } = req.body;
+    const { deskripsi, nominal, fk_sumber_uang, tanggal, kategori_masuk, uid, nama_sumber_uang } = req.body;
 
     try {
         // Ambil data pemasukan lama
@@ -87,8 +87,10 @@ exports.updatePemasukan = async (req, res) => {
 
         // Update data pemasukan
         const [result] = await db.query(
-            "UPDATE pemasukan SET deskripsi = ?, nominal = ?, sumber_uang = ?, tanggal = ?, kategori_masuk = ?, uid = ? WHERE id_pemasukan = ?",
-            [deskripsi, nominal, fk_sumber_uang, tanggal, kategori_masuk, uid, id_pemasukan]
+            `UPDATE pemasukan 
+            SET deskripsi = ?, nominal = ?, sumber_uang = ?, tanggal = ?, kategori_masuk = ?, uid = ?, nama_sumber_uang = ? 
+            WHERE id_pemasukan = ?`,
+            [deskripsi, nominal, fk_sumber_uang, tanggal, kategori_masuk, uid, nama_sumber_uang, id_pemasukan]
         );
 
         if (result.affectedRows === 0) {
@@ -131,7 +133,7 @@ exports.getPemasukanById = async (req, res) => {
             message: "Pemasukan berhasil ditemukan",
             data: {
                 ...rows[0],
-                uid: rows[0].wallet_uid // Tambahkan uid pada pemasukan
+                uid: rows[0].wallet_uid
             }
         });
     } catch (error) {
@@ -154,23 +156,14 @@ exports.deletePemasukan = async (req, res) => {
 
         // Hapus pemasukan
         const [result] = await db.query("DELETE FROM pemasukan WHERE id_pemasukan = ?", [id_pemasukan]);
-
         if (result.affectedRows === 0) {
             return res.status(404).json({ message: "Pemasukan tidak ditemukan" });
         }
 
         // Update nominal wallet
-        const [walletRows] = await db.query("SELECT nominal FROM wallet WHERE id = ?", [pemasukan.sumber_uang]);
-        if (walletRows.length === 0) {
-            return res.status(404).json({ message: "Wallet tidak ditemukan" });
-        }
-        const wallet = walletRows[0];
-        const updatedNominal = parseFloat(wallet.nominal) - parseFloat(pemasukan.nominal);
+        await db.query("UPDATE wallet SET nominal = nominal - ? WHERE id = ?", [pemasukan.nominal, pemasukan.sumber_uang]);
 
-        // Simpan perubahan pada wallet
-        await db.query("UPDATE wallet SET nominal = ? WHERE id = ?", [updatedNominal, pemasukan.sumber_uang]);
-
-        return res.status(200).json({ message: "Pemasukan berhasil dihapus" });
+        res.status(200).json({ message: "Pemasukan berhasil dihapus" });
     } catch (error) {
         console.error(error);
         res.status(500).json({ message: "Terjadi kesalahan pada server" });
