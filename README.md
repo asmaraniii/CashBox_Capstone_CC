@@ -6,8 +6,10 @@ This API provides an endpoint for managing users, expenses, income, wallets, bud
 
 Endpoint: 
 ```/api/auth/register```
+
 Method: 
 ```POST```
+
 Body Example
 ```sh
 { 
