@@ -5,7 +5,6 @@ exports.getUserByUid = async (req, res) => {
     const { uid } = req.params;
 
     try {
-        // Cari user berdasarkan UID dengan JOIN ke tabel akun
         const [userRows] = await db.query(
             "SELECT akun.email, akun.name FROM akun WHERE akun.uid = ?",
             [uid]
@@ -33,8 +32,8 @@ exports.getUserByUid = async (req, res) => {
                 tgl_lahir: user.tgl_lahir,
                 no_telp: user.no_telp,
                 gender: user.gender,
-                email: userRows[0].email, // Ambil email dari tabel akun
-                name: userRows[0].name, // Ambil nama dari tabel akun
+                email: userRows[0].email,
+                name: userRows[0].name,
                 created_at: user.created_at,
                 update_at: user.update_at,
             },
@@ -50,17 +49,14 @@ exports.updateUserByUid = async (req, res) => {
     const { uid, tgl_lahir, no_telp, gender } = req.body;
 
     try {
-        // Validasi input
         if (!uid || !tgl_lahir || !no_telp || !gender) {
             return res.status(400).json({ message: "Field uid, tgl_lahir, no_telp, dan gender wajib diisi." });
         }
 
-        // Validasi gender hanya boleh 'L' atau 'P'
         if (!['L', 'P'].includes(gender)) {
             return res.status(400).json({ message: "Gender harus berupa 'L' (Laki-laki) atau 'P' (Perempuan)." });
         }
 
-        // Perbarui data user di tabel user
         const [result] = await db.query(
             "UPDATE user SET tgl_lahir = ?, no_telp = ?, gender = ?, update_at = NOW() WHERE uid = ?",
             [tgl_lahir, no_telp, gender, uid]
@@ -70,7 +66,6 @@ exports.updateUserByUid = async (req, res) => {
             return res.status(404).json({ message: "User tidak ditemukan atau tidak ada perubahan." });
         }
 
-        // Dapatkan data user yang diperbarui bersama dengan email dan nama dari tabel akun
         const [updatedUserRows] = await db.query(
             "SELECT akun.email, akun.name FROM akun WHERE akun.uid = ?",
             [uid]
@@ -84,9 +79,9 @@ exports.updateUserByUid = async (req, res) => {
                 tgl_lahir: tgl_lahir,
                 no_telp: no_telp,
                 gender: gender,
-                update_at: format(new Date(), 'yyyy-MM-dd HH:mm:ss'), // Formatted current date-time
-                email: updatedUser ? updatedUser.email : null, // Email dari tabel akun, jika ada
-                name: updatedUser ? updatedUser.name : null, // Nama dari tabel akun, jika ada
+                update_at: format(new Date(), 'yyyy-MM-dd HH:mm:ss'), 
+                email: updatedUser ? updatedUser.email : null, 
+                name: updatedUser ? updatedUser.name : null,
             },
         });
     } catch (error) {
@@ -100,17 +95,14 @@ exports.addUserDetails = async (req, res) => {
     const { uid, tgl_lahir, no_telp, gender } = req.body;
 
     try {
-        // Validasi input
         if (!uid || !tgl_lahir || !no_telp || !gender) {
             return res.status(400).json({ message: "Field uid, tgl_lahir, no_telp, dan gender wajib diisi." });
         }
 
-        // Validasi gender hanya boleh 'L' atau 'P'
         if (!['L', 'P'].includes(gender)) {
             return res.status(400).json({ message: "Gender harus berupa 'L' (Laki-laki) atau 'P' (Perempuan)." });
         }
 
-        // Tambahkan data user ke tabel user
         const [result] = await db.query(
             "INSERT INTO user (uid, tgl_lahir, no_telp, gender, created_at, update_at) VALUES (?, ?, ?, ?, NOW(), NOW())",
             [uid, tgl_lahir, no_telp, gender]
@@ -120,7 +112,6 @@ exports.addUserDetails = async (req, res) => {
             return res.status(404).json({ message: "User tidak ditemukan atau tidak ada perubahan." });
         }
 
-        // Ambil data user yang baru ditambahkan bersama dengan email dan nama dari tabel akun
         const [newUserRows] = await db.query(
             "SELECT akun.email, akun.name FROM akun WHERE akun.uid = ?",
             [uid]
@@ -134,8 +125,8 @@ exports.addUserDetails = async (req, res) => {
                 tgl_lahir: tgl_lahir,
                 no_telp: no_telp,
                 gender: gender,
-                created_at: format(new Date(), 'yyyy-MM-dd HH:mm:ss'), // Formatted current date-time
-                update_at: format(new Date(), 'yyyy-MM-dd HH:mm:ss'), // Formatted current date-time
+                created_at: format(new Date(), 'yyyy-MM-dd HH:mm:ss'),
+                update_at: format(new Date(), 'yyyy-MM-dd HH:mm:ss'),
                 email: newUser.email,
                 name: newUser.name
             },
