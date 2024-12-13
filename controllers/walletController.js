@@ -3,7 +3,7 @@ const db = require("../config/db");
 // Menambahkan wallet dengan `uid` di body
 const addWallet = async (req, res) => {
     console.log("Request Body:", req.body);
-    const { nama, nominal, uid } = req.body; // Tambahkan `uid`
+    const { nama, nominal, uid } = req.body;
 
     if (!nama || typeof nominal !== "number" || !uid) {
         return res.status(400).json({ message: "Nama, nominal, dan uid harus diisi dengan benar" });
@@ -44,14 +44,12 @@ const updateWalletName = async (req, res) => {
 // Mendapatkan semua wallet
 const getAllWallets = async (req, res) => {
     try {
-        const [rows] = await db.query("SELECT id, nama, nominal, uid FROM wallet"); // Sertakan `uid`
-
-        // Kembalikan dalam response body juga uid
+        const [rows] = await db.query("SELECT id, nama, nominal, uid FROM wallet"); 
         res.status(200).json({
             message: "Daftar wallet berhasil diambil.",
             data: rows.map(wallet => ({
                 ...wallet,
-                uid: wallet.uid // Tambahkan uid pada setiap wallet
+                uid: wallet.uid
             }))
         });
     } catch (error) {
@@ -71,10 +69,9 @@ const getWalletById = async (req, res) => {
             return res.status(404).json({ message: "Wallet tidak ditemukan" });
         }
 
-        // Kembalikan dalam response body juga uid
         return res.status(200).json({
             message: "Wallet berhasil ditemukan",
-            data: { ...rows[0], uid: rows[0].uid } // Tambahkan uid pada wallet
+            data: { ...rows[0], uid: rows[0].uid }
         });
     } catch (error) {
         console.error("Error fetching wallet by ID:", error);
