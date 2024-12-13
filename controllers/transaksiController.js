@@ -1,6 +1,5 @@
-const db = require("../config/db"); // Pastikan menggunakan koneksi database yang benar
+const db = require("../config/db");
 
-// Mengambil semua data transaksi (pemasukan dan pengeluaran)
 // Mengambil semua data transaksi (pemasukan dan pengeluaran)
 exports.getAllTransaksi = async (req, res) => {
     try {
@@ -21,7 +20,7 @@ exports.getAllTransaksi = async (req, res) => {
             message: "Data transaksi berhasil diambil",
             data: rows.map(row => ({
                 ...row,
-                uid: row.wallet_uid // Tambahkan uid pada setiap transaksi
+                uid: row.wallet_uid
             }))
         });
     } catch (error) {
@@ -38,8 +37,6 @@ exports.getTotalPemasukan = async (req, res) => {
             FROM pemasukan
         `;
         const [totalPemasukan] = await db.query(query);
-
-        // Mengirimkan total saldo pemasukan
         res.status(200).json({
             message: "Total saldo pemasukan berhasil diambil",
             total_pemasukan: totalPemasukan[0].total_pemasukan || 0,
@@ -61,8 +58,6 @@ exports.getTotalPengeluaran = async (req, res) => {
             FROM pengeluaran
         `;
         const [totalPengeluaran] = await db.query(query);
-
-        // Mengirimkan total saldo pengeluaran
         res.status(200).json({
             message: "Total saldo pengeluaran berhasil diambil",
             total_pengeluaran: totalPengeluaran[0].total_pengeluaran || 0,
@@ -79,8 +74,6 @@ exports.getTotalPengeluaran = async (req, res) => {
 // Mengambil total saldo pemasukan per bulan
 exports.getTotalPemasukanPerBulan = async (req, res) => {
     const { bulan, tahun } = req.query;
-
-    // Validasi parameter bulan dan tahun
     if (!bulan || !tahun) {
         return res.status(400).json({ message: "Bulan dan tahun wajib disertakan dalam query parameter." });
     }
@@ -92,8 +85,7 @@ exports.getTotalPemasukanPerBulan = async (req, res) => {
             WHERE MONTH(tanggal) = ? AND YEAR(tanggal) = ?
         `;
         const [totalPemasukan] = await db.query(query, [bulan, tahun]);
-
-        // Mengirimkan total saldo pemasukan per bulan
+        
         res.status(200).json({
             message: `Total saldo pemasukan untuk bulan ${bulan} dan tahun ${tahun} berhasil diambil`,
             total_pemasukan: totalPemasukan[0].total_pemasukan || 0,
@@ -110,8 +102,6 @@ exports.getTotalPemasukanPerBulan = async (req, res) => {
 // Mengambil total saldo pengeluaran per bulan
 exports.getTotalPengeluaranPerBulan = async (req, res) => {
     const { bulan, tahun } = req.query;
-
-    // Validasi parameter bulan dan tahun
     if (!bulan || !tahun) {
         return res.status(400).json({ message: "Bulan dan tahun wajib disertakan dalam query parameter." });
     }
@@ -123,8 +113,6 @@ exports.getTotalPengeluaranPerBulan = async (req, res) => {
             WHERE MONTH(tanggal) = ? AND YEAR(tanggal) = ?
         `;
         const [totalPengeluaran] = await db.query(query, [bulan, tahun]);
-
-        // Mengirimkan total saldo pengeluaran per bulan
         res.status(200).json({
             message: `Total saldo pengeluaran untuk bulan ${bulan} dan tahun ${tahun} berhasil diambil`,
             total_pengeluaran: totalPengeluaran[0].total_pengeluaran || 0,
