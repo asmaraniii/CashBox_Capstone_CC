@@ -1,4 +1,4 @@
-const db = require("../config/db"); // Pastikan koneksi database benar
+const db = require("../config/db");
 
 // Menambahkan tabungan baru untuk goal tertentu
 exports.addTabungan = async (req, res) => {
@@ -73,7 +73,7 @@ exports.updateTabungan = async (req, res) => {
 // Mengambil semua tabungan
 exports.getAllTabungan = async (req, res) => {
     try {
-        const query = "SELECT * FROM tabungan ORDER BY tgl_tabung DESC"; // Sesuaikan urutan sesuai kebutuhan
+        const query = "SELECT * FROM tabungan ORDER BY tgl_tabung DESC";
         const [rows] = await db.query(query);
 
         if (rows.length === 0) {
