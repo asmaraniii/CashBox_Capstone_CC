@@ -10,6 +10,7 @@ const transaksiRoute = require('./routes/transaksiRoute');
 const userRoute = require("./routes/userRoute");
 const goalsRoute = require('./routes/goalsRoute');
 const tabunganRoute = require('./routes/tabunganRoute');
+const budgetingRoute = require('./routes/budgetingRoute');
 
 dotenv.config();
 
@@ -33,6 +34,7 @@ app.use("/api/wallet", walletRoute);
 app.use("/api/transaksi", transaksiRoute);
 app.use("/api/goals", goalsRoute);
 app.use("/api/tabungan", tabunganRoute);
+app.use('/api/budgeting', budgetingRoute);
 
 app.use((err, req, res, next) => {
   console.error("Error:", err.message || err);
